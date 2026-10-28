@@ -139,12 +139,40 @@
     background-color:#fafafa;
     color:gray;
     }
-    a:active {
-    text-decoration:none;
-    background-color:gray;
-    color:#fafafa;
+    .api-key-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 16px;
     }
-
+    .api-key-section label {
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .api-key-section input {
+      width: 100%;
+      box-sizing: border-box;
+      padding: 8px 12px;
+      border: 1px solid #444;
+      border-radius: 8px;
+      background-color: #2b2c2f;
+      color: #e8eaed;
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .api-key-section input:focus {
+      border-color: #E2167E;
+    }
+    #saveApiKey {
+      margin-bottom: 4px;
+    }
+    .save-status {
+      font-size: 12px;
+      color: #81c995;
+      text-align: center;
+      min-height: 16px;
+    }
   </style>
 </head>
 <body>
@@ -153,13 +181,24 @@
     <span>⎛⎝ ≽  >  ⩊   < ≼ ⎠⎞</span>
     <span>Thanks for using Shift 一鍵翻譯 🍺</span>
   </div>
+
+  <div class="api-key-section">
+    <label for="apiKey">DeepL API Key 設定：</label>
+    <input type="password" id="apiKey" placeholder="貼上你的 DeepL API Key" autocomplete="off" />
+    <button id="saveApiKey">💾 儲存 Key</button>
+    <span id="saveStatus" class="save-status"></span>
+  </div>
+
+  <div class="separator"></div>
+
   <button id="reportBug">🐛 錯誤回報</button>
   <button id="goToGithub"><img src="assets/github.svg" alt="Github">Github 連結</button>
   <button id="feedbackButton">💬 意見回饋</button>
+
   <div class="separator"></div>
   <div class="contact-info">
-    聯絡開發者：<br>
-    <a href="https://mail.google.com/mail/?view=cm&fs=1&to=alex.liang0812@gmail.com">alex.liang0812@gmail.com</a>
+    問題與建議：<br>
+    <a href="https://github.com/WhitetapeOwO/Shift-One-Click-Translation/issues" target="_blank">GitHub Issues</a>
   </div>
 
   <script src="popup.js"></script>

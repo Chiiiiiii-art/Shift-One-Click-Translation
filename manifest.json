@@ -11,6 +11,7 @@
   "host_permissions": [
     "*://www.google.com/*",
     "*://api-free.deepl.com/*",
+    "*://api.deepl.com/*",
     "https://api.zhconvert.org/"
   ],
   "background": {

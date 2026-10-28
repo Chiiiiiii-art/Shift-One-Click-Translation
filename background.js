@@ -3,47 +3,58 @@ chrome.runtime.onMessage.addListener((request, _sender, sendResponse) => {
 
   if (request.type === "TRANSLATE") {
     const { text, targetLang } = request.payload;
-    const apiUrl = 'https://api-free.deepl.com/v2/translate';
-    const authKey = 'YOUR_DEEPL_API_KEY'; // 在此處輸入你的 DeepL API 金鑰
 
-    console.log("Preparing to send request to DeepL API"); // 調試訊息
-    console.log("Text:", text, "Target Language:", targetLang);
+    chrome.storage.sync.get(['deeplApiKey'], (result) => {
+      const authKey = result.deeplApiKey ? result.deeplApiKey.trim() : '';
 
-    fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `DeepL-Auth-Key ${authKey}`,
-        'Content-Type': 'application/x-www-form-urlencoded'
-      },
-      body: new URLSearchParams({
-        "text": text,
-        "target_lang": targetLang
+      if (!authKey) {
+        sendResponse({ error: "請先點擊擴充功能圖示設定 DeepL API Key" });
+        return;
+      }
+
+      const apiUrl = authKey.endsWith(':fx')
+        ? 'https://api-free.deepl.com/v2/translate'
+        : 'https://api.deepl.com/v2/translate';
+
+      console.log("Preparing to send request to DeepL API"); // 調試訊息
+      console.log("Text:", text, "Target Language:", targetLang);
+
+      fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Authorization': `DeepL-Auth-Key ${authKey}`,
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body: new URLSearchParams({
+          "text": text,
+          "target_lang": targetLang
+        })
       })
-    })
-    .then(response => {
-      console.log("Response received:", response);
-      if (response.ok) {
-        return response.json();
-      } else {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-    })
-    .then(data => {
-      console.log("Data received from DeepL API:", data);
-      if (data.translations && data.translations.length > 0) {
-        sendResponse({ translatedText: data.translations[0].text });
-        console.log("Original text sent to DeepL:", text);
-      } else {
-        sendResponse({ error: "Translation failed" });
-      }
-    })
-    .catch(error => {
-      console.error("Translation error:", error);
-      if (error.message.includes('403')) {
-        sendResponse({ error: "Authentication failed. Please check your API key." });
-      } else {
-        sendResponse({ error: `Translation failed: ${error.message}` });
-      }
+      .then(response => {
+        console.log("Response received:", response);
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+      })
+      .then(data => {
+        console.log("Data received from DeepL API:", data);
+        if (data.translations && data.translations.length > 0) {
+          sendResponse({ translatedText: data.translations[0].text });
+          console.log("Original text sent to DeepL:", text);
+        } else {
+          sendResponse({ error: "Translation failed" });
+        }
+      })
+      .catch(error => {
+        console.error("Translation error:", error);
+        if (error.message.includes('403')) {
+          sendResponse({ error: "Authentication failed. Please check your API key." });
+        } else {
+          sendResponse({ error: `Translation failed: ${error.message}` });
+        }
+      });
     });
 
     return true;  // 保持消息通道開放以進行異步響應

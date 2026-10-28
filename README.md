@@ -9,8 +9,15 @@
 
 **立即安裝「Shift 一鍵翻譯」，體驗前所未有的便捷搜尋方式，讓你的搜尋體驗瞬間提升！**
 
----
+### ⚙️ 安裝與使用設定
+1. 下載或 Clone 此儲存庫至本機。
+2. 開啟 Chrome 瀏覽器，前往 `chrome://extensions/` 並開啟右上角「開發人員模式」。
+3. 點選「載入未封裝項目」，選擇此專案資料夾。
+4. 前往 [DeepL API 官網](https://www.deepl.com/pro-api) 申請免費金鑰（Free API Key）。
+5. 點擊瀏覽器工具列上的「Shift 一鍵翻譯」圖示，貼上 API Key 並點選「儲存 Key」。
+6. 前往 Google 搜尋頁面即可開始享受一鍵翻譯搜尋！
 
+---
 
 **Shift One-Click Translation: Break Language Barriers in Your Searches!**
 
@@ -20,4 +27,11 @@ Ever wanted to search in a foreign language on Google but struggled with transla
 
 For Taiwanese users, we've incorporated the Fǎnhuà Jī API to ensure translations are handled with precision, making the language feel more authentic and localized.
 
-**Install "Shift One-Click Translation" now and revolutionize your search experience. Elevate your searches to a whole new level of convenience and efficiency!**
+### ⚙️ Setup & Configuration
+1. Clone or download this repository.
+2. Open Chrome and navigate to `chrome://extensions/`. Enable "Developer mode".
+3. Click "Load unpacked" and select the extension directory.
+4. Get your API key from [DeepL API](https://www.deepl.com/pro-api) (Free plan available).
+5. Click the extension icon in Chrome toolbar, paste your DeepL API key and click "Save Key".
+6. Navigate to Google Search and start searching in any language!
+
